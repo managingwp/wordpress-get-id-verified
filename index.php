@@ -1,13 +1,13 @@
 <?php
 /**
 * Plugin Name: Get ID Verified
+* Plugin URI: https://github.com/jordantrizz/wordpress-get-id-verified
 * Description: This plugin contains all of my awesome custom functions.
-* Author: CA
+* Author: Jordan
 * Version: 0.1
 *
 * Code taken from https://www.shift8web.ca/2018/06/how-to-implement-a-government-id-verification-system-with-woocommerce-and-wordpress/ and cleaned up to work properly.
 */
-
 
 /* Created Menu Item in WooCommerce for "Get ID Verified" */
 function account_menu_items( $items ) { 
@@ -24,9 +24,10 @@ add_action( 'init', 'add_my_account_endpoint' );
 function idverify_endpoint_content() {
     $current_user = get_current_user_id();
     $user_verified = get_field('government_id_verified', 'user_' . $current_user);
-    if ($user_verified && in_array('verified', $user_verified)) {
+    if ($user_verified && $user_verified == 'yes') {
         echo 'You are already verified and no longer need to upload your ID';
     } else {
+        echo 'Your account is not verified. If you believe this is in error, please <a href="/contact">contact us.</a><br><br>';
         acf_form_head();
         $form_options = array(
             'fields' => array(
