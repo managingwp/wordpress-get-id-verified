@@ -27,8 +27,11 @@ function idverify_endpoint_content() {
     if ($user_verified && $user_verified == 'yes') {
         echo 'You are already verified and no longer need to upload your ID';
     } else {
-        echo 'Your account is not verified. If you believe this is in error, please <a href="/contact">contact us.</a><br><br>';
-        acf_form_head();
+        $page = get_page_by_title( 'Get ID Verified Not Verified' );
+        $content = apply_filters('the_content', $page->post_content); 
+        echo $content;
+
+/*        acf_form_head();
         $form_options = array(
             'fields' => array(
                 'attach_valid_government_id',
@@ -37,7 +40,7 @@ function idverify_endpoint_content() {
             'updated_message' => __("Government ID submitted. Please allow 1-2 business days for verification to be complete.", 'acf'),
             'post_id' => 'user_' . $current_user,
         );
-        acf_form($form_options);
+        acf_form($form_options);*/
     }
 }
 
@@ -84,7 +87,11 @@ function add_notice_for_verified() {
     $current_user = get_current_user_id();
     $user_verified = get_field('government_id_verified', 'user_' . $current_user);
     if (!$user_verified || $user_verified = 'no') {
-        wc_add_notice( '<center>Your account is not verified<br><br>You can proceed with your order, however please visit the <a href="/my-account/idverify/">Get ID Verified</a> page from My Account page to verify your account.<br><br>If you\'re an existing verified customer, this is a new feature, we\'ve recently rolled out. Please <a href="/contact">contact us</a> if you\'re an existing verified customer', 'error' );
+#        wc_add_notice( '<center>Your account is not verified<br><br>If you were previously verified then you can proceed with your order, you will be automatically verified.<br><br>If this is your first order please visit the <a href="/my-account/idverify/">Get ID Verified</a> page from My Account page to verify your account.<br><br>If you\'re an existing verified customer, this is a new feature, we\'ve recently rolled out. Please <a href="/contact">contact us</a> if you\'re an existing verified customer', 'error' );
+        $page = get_page_by_title( 'Get ID Verfied Checkout Notice' );
+        $content = apply_filters('the_content', $page->post_content);
+        echo $content;
+        wc_add_notice($content);
     }
 }
 add_action( 'woocommerce_before_checkout_form', 'add_notice_for_verified' );
