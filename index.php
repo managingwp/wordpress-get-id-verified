@@ -84,7 +84,7 @@ function add_notice_for_verified() {
     $current_user = get_current_user_id();
     $user_verified = get_field('government_id_verified', 'user_' . $current_user);
     if (!$user_verified || $user_verified = 'no') {
-        wc_add_notice( '<center>Your account is not verified<br><br>You can proceed with your order, however please visit the <a href="/my-account/idverify/">Get ID Verified</a>page from My Account page to verify your account.<br><br>If you\'re an existing verified customer, this is a new feature, we\'ve recently rolled out. Please <a href="/contact">contact us</a> if you\'re an existing verified customer', 'error' );
+        wc_add_notice( '<center>Your account is not verified<br><br>You can proceed with your order, however please visit the <a href="/my-account/idverify/">Get ID Verified</a> page from My Account page to verify your account.<br><br>If you\'re an existing verified customer, this is a new feature, we\'ve recently rolled out. Please <a href="/contact">contact us</a> if you\'re an existing verified customer', 'error' );
     }
 }
 add_action( 'woocommerce_before_checkout_form', 'add_notice_for_verified' );
