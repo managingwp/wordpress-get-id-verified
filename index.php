@@ -87,10 +87,8 @@ function add_notice_for_verified() {
     $current_user = get_current_user_id();
     $user_verified = get_field('government_id_verified', 'user_' . $current_user);
     if (!$user_verified || $user_verified = 'no') {
-#        wc_add_notice( '<center>Your account is not verified<br><br>If you were previously verified then you can proceed with your order, you will be automatically verified.<br><br>If this is your first order please visit the <a href="/my-account/idverify/">Get ID Verified</a> page from My Account page to verify your account.<br><br>If you\'re an existing verified customer, this is a new feature, we\'ve recently rolled out. Please <a href="/contact">contact us</a> if you\'re an existing verified customer', 'error' );
-        $page = get_page_by_title( 'Get ID Verfied Checkout Notice' );
+        $page = get_page_by_title( 'Get ID Verified Checkout Notice' );
         $content = apply_filters('the_content', $page->post_content);
-        echo $content;
         wc_add_notice($content);
     }
 }
