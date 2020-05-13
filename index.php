@@ -1,4 +1,5 @@
 <?php
+
 /**
 * Plugin Name: Get ID Verified
 * Plugin URI: https://github.com/jordantrizz/wordpress-get-id-verified
@@ -11,7 +12,7 @@
 
 /* Created Menu Item in WooCommerce for "Get ID Verified" */
 function account_menu_items( $items ) { 
-        $items['idverify'] = __( 'Get ID Verified', 'idverify' );
+        $items['idverify'] = __( 'ID Verification', 'idverify' );
             return $items;
 } 
 add_filter( 'woocommerce_account_menu_items', 'account_menu_items', 10, 1 );
@@ -43,7 +44,6 @@ function idverify_endpoint_content() {
         acf_form($form_options);*/
     }
 }
-
 add_action( 'woocommerce_account_idverify_endpoint', 'idverify_endpoint_content' );
 
 function idverify_order_column( $columns ) {
@@ -52,10 +52,9 @@ function idverify_order_column( $columns ) {
 }
 add_filter( 'manage_edit-shop_order_columns', 'idverify_order_column' );
 
-
+/* Add ID Verified Column to Orders Page */
 function add_idverify_column_header( $columns )  {
- 
-    $new_columns = array();
+     $new_columns = array();
  
     foreach ( $columns as $column_name => $column_info ) {
         $new_columns[ $column_name ] = $column_info;
@@ -67,6 +66,7 @@ function add_idverify_column_header( $columns )  {
 }
 add_filter( 'manage_edit-shop_order_columns', 'add_idverify_column_header', 20 );
 
+/* Add Verified or Not Verified to ID Verified Column */
 function add_order_idverify_column_content( $column ) {
     global $post;
     if ( 'idverify_column' === $column ) {
@@ -74,24 +74,28 @@ function add_order_idverify_column_content( $column ) {
         $user_id = $order->user_id;
         $verified_status = get_field('government_id_verified', 'user_' . $user_id);
         if ($verified_status && $verified_status == 'yes') {
-            echo '';
+            echo '<div class="idverify_button_verified">Verified</div>';
         } else {
-            echo ' <a href="' . get_edit_user_link($user_id) . '#government_id_verified" target="_new">Verify User</a>';
+            echo '<div class="idverify_button_verify"><a href="' . get_edit_user_link($user_id) . '#government_id_verified" target="_new">Verify User</a></div>';
         }
     }
 }
 add_action( 'manage_shop_order_posts_custom_column', 'add_order_idverify_column_content' );
 
 
-function add_notice_for_verified() {
+/*function add_notice_for_verified() {
     $current_user = get_current_user_id();
     $user_verified = get_field('government_id_verified', 'user_' . $current_user);
     if (!$user_verified || $user_verified = 'no') {
         $page = get_page_by_title( 'Get ID Verified Checkout Notice' );
         $content = apply_filters('the_content', $page->post_content);
-        wc_add_notice($content);
+        wc_add_notice($content,'error');
     }
 }
-add_action( 'woocommerce_before_checkout_form', 'add_notice_for_verified' );
+add_action( 'woocommerce_checkout_before_customer_details', 'add_notice_for_verified');*/
 
+function load_custom_wp_admin_style($hook) {
+        wp_enqueue_style( 'custom_wp_admin_css', plugins_url('style.css', __FILE__) );
+}
+add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
 ?>

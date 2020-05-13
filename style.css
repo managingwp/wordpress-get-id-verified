@@ -1,0 +1,20 @@
+.idverify_button_verified {
+    text-align: center;
+    background: green;
+    border-radius: 4px;
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    color: white;
+    width: 100px;
+}
+
+.idverify_button_verify {
+    text-align: center;
+    background: red;
+    border-radius: 4px;
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    width: 100px;
+}
+
+.idverify_button_verify a {
+    color: white;
+}
