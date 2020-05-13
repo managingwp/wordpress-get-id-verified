@@ -6,7 +6,7 @@ This repository serves as a continuation of the following article by https://www
 # Disclaimer
 Mind your step, this is my first Wordpress plugin. Looking for help and guidance always!
 
-If you want to chat, I setup a discord server at https://discord.gg/efqBaGh
+If you want to chat, email for now. I might check [![Gitter](https://badges.gitter.im/jordantrizz/community.svg)](https://gitter.im/jordantrizz/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 # Installation
 If you can read the code, then it should be pretty easy. You can also follow the above article by Shift8Web.
